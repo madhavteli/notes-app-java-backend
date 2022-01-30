@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,5 +32,10 @@ public class NotesController {
 	@PostMapping("/createNote")
 	public ResponseEntity<Note> createNote( @RequestBody Note note) {
 		return new ResponseEntity<Note>(notesRepo.save(note), HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/note/{id}")
+	public ResponseEntity<Note> readNote(@PathVariable int id) {
+		return new ResponseEntity<Note>(notesRepo.findById(id).get(), HttpStatus.OK);
 	}
 }
